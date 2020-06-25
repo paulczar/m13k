@@ -1,0 +1,199 @@
+---
+# Source: m13k/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: m13k
+  labels:
+    helm.sh/chart: m13k-0.1.0
+    app.kubernetes.io/name: m13k
+    app.kubernetes.io/instance: m13k
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: m13k/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: m13k-tls
+  labels:
+    helm.sh/chart: m13k-0.1.0
+    app.kubernetes.io/name: m13k
+    app.kubernetes.io/instance: m13k
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+type: tls
+data:
+  server.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM4VENDQWRtZ0F3SUJBZ0lVZWVEcHk3WjJEMm5HcXVzUTg1aXRwbSt0L2Vzd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0VqRVFNQTRHQTFVRUF3d0hkR1Z6ZEMxallUQWVGdzB5TURBMk1qVXlNREF3TURSYUZ3MHlNREE0TWpReQpNREF3TURSYU1CZ3hGakFVQmdOVkJBTU1EVzB4TTJzdWJURXpheTV6ZG1Nd2dnRWlNQTBHQ1NxR1NJYjNEUUVCCkFRVUFBNElCRHdBd2dnRUtBb0lCQVFDMnpvdm5pTDJNNEZtZDEvdDhBWFhFUnVrZ3ZEcmZzenIxVGlXUlcyUjAKL2JiRW9CVEpTYk9nL0xOeCs2bU5SMDRSK05nZ0JvejNaSW95ZHJZQmZhUG95V0hSUXBrSCt1RC9aVk5QWGxGUworTmpydjFSbCtVTGhweERtSzhuQ0Nrd3l3SmRXdmdoOWE3dGc0ckFkbzRCcHo5dUgxT1FNYkpYZzdMUXludFNOCmVtVzFvemRWK3FVQUFFV1Y5V01TbmNPRDBKZ0RnSXQwcFFEL2ZqU05ZcldTV0Q3WTZtKzZwSk9xN0NKY2hSeG4KTkJUT0JPM2paS3ZmZXR5RlYrcUFRcWJiY285citqREJ6RTF2dUVBSS9HV2xsTEgyUFpQUzJVb2VaYmJXNEJVSApwekV6WGNrWnBWaXdhV3Mwbmh0dlQ4OFNnU2xWRGZ1K09RUEI2T2s4RGRqMUFnTUJBQUdqT1RBM01Ba0dBMVVkCkV3UUNNQUF3Q3dZRFZSMFBCQVFEQWdYZ01CMEdBMVVkSlFRV01CUUdDQ3NHQVFVRkJ3TUNCZ2dyQmdFRkJRY0QKQVRBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQXJrTHovYkozOHhxN0lpTEk5L2dqSi9jd3hWOGFla0UzUWNLQQpYRGtobncxQ2k2REMyWFIyTmFXWHZjRC9yZm9YSlVBd0YvTlJJWW1JdHlRN2hJWjFFRElrRll3UDJzK2tuRjdPCnZMQ3NPYWg2S1ZJdEJHbUZvM0VDRFI4K2xWdmNkSGlrcHNldlNGalUxVE9xZ2FkSlVoa1NXbVZBdjc2SUpmMzYKVktGOGR6UWJFQnZWeDljaFBkZFo2OFcvdDVZV3FlNWJuRjFvSXVEdkRGa2VUOHFJZmQ2UWl5Tyt2d0V0VjY0TQp3V3B5elh4TFJabjlZYWZ1VUpXRU5lSWIzc0FVN1ZxVjZFSXN1MGhQY01TQW5tendrMXRUTUVjSEJaNnNpUDBSCjBVOTYvV1JMcFgrcnU4MTdmNGZtNmZVaGpoN1kwK3c1TnphQWlLTkQ5czVVUFkwU0dBPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+  server.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb2dJQkFBS0NBUUVBdHM2TDU0aTlqT0JabmRmN2ZBRjF4RWJwSUx3NjM3TTY5VTRsa1Z0a2RQMjJ4S0FVCnlVbXpvUHl6Y2Z1cGpVZE9FZmpZSUFhTTkyU0tNbmEyQVgyajZNbGgwVUtaQi9yZy8yVlRUMTVSVXZqWTY3OVUKWmZsQzRhY1E1aXZKd2dwTU1zQ1hWcjRJZld1N1lPS3dIYU9BYWMvYmg5VGtER3lWNE95ME1wN1VqWHBsdGFNMwpWZnFsQUFCRmxmVmpFcDNEZzlDWUE0Q0xkS1VBLzM0MGpXSzFrbGcrMk9wdnVxU1RxdXdpWElVY1p6UVV6Z1R0CjQyU3IzM3JjaFZmcWdFS20yM0tQYS9vd3djeE5iN2hBQ1B4bHBaU3g5ajJUMHRsS0htVzIxdUFWQjZjeE0xM0oKR2FWWXNHbHJOSjRiYjAvUEVvRXBWUTM3dmprRHdlanBQQTNZOVFJREFRQUJBb0lCQUROZENYWSt0M09UdmRwWgp5ekZtZjU1c2hpaEtld2hMcGE4ekM5OHhuS0k2ZjFYejNLTko4QXkxcy8yOHhrRUozZWV5MFpiK0FER3FzQ0hKCnRRM3FMVm5FNjVVT2IwME1zcGRQOHY2RDg3bXFiZGlmWTZsYlJlMTlNWVJhblUvRjhPNzVxZ3dYVE85Z2k3K0gKTWhEQjFkemxLRHVjRjQ5ZUd5YWRtMnYxc0tjbldIbjF1VUo2Z3hvbnE5VzJCNGFpTHlWSzFKQUJaY1FBMEVIagp6bFVyekl4U2tLbXRnU1VxdnlyVTVaSjRKcndYdmM2RjdpZGROcStFOTcwVHQvd3l0RERRanR6YVEva1NuM0VGCkNVcWhLQjJHS0Q0SVd0dmZEWWdRRHZzTVBFZGNVeG1NTURsMHdIYlhxZXZFRUJRV3FUVjAyWE43RmpYNFlJaWIKRkc0WUQya0NnWUVBOHFvY2VXZHJzZ0JNUmpEU0FmTGs4WXVxZEdCZHFRZWRreGt5eWhDYnhLRmUzZkplSFVnZApWK3NTOHcxRGRGOTkwTWY3QmJWK0t0eWpYYm9qendmT2txNHB3ZUtBbVlGQ2NNQmc1Tm90ckF2RWsrU3UzSGxzCksyemZPTGllR3MzYmVHTjduem40NkxPRXYwb2t3VmgrUFRzeEI1MUEvclNCRVZtd2VxSGZJcjhDZ1lFQXdOcFcKTFhSaS90V2ZuZVJLd3dRUFlVaUJiTUNxYUswcXZPbFREeW1WT3RoWjdteWZCZmwza3hjdXltTHlPbzhJTGpGcgpCU2x1djFidHYrSnRudllSQ0VGWllRemtwL2paWUlOWTRaR1htdk5KRW5pbVhhWEFnK05OU0l6dXA4b3RyQnRpClBIcnNPUnRJUWhrb291aDhQd0l2K2dJSVRQWml6UnRtbWdSckZVc0NnWUJ5VkIxWVFaYW01YWNLQnVSYTBMSjIKN3lPZTh1d053QzNJYVQzWm45dVQxNmVYa0NJeFQ1R3JvM0JwSE4ya0RYMThpVXZHVTgwZXFwYzVpSUpvZnpnZgpPWGtwQk9zcjU0K0RDZEJjNGtKVVpiTDNMdTRIcUJtRG1DYlBWWVFBQXU4ZEdGbmRHZllneEx1TldJUmFwN1BLCmE0SGRJWVRHdkFwM1B6ZDdmNXBlaHdLQmdHZEN3US8zbUtZZ2xpWEJ2aklyYzF6QXFPUWxTVmxoRjFndGlwYTgKeWpYRzhHaFVhdFdWSE94NlpraGhzSmVnVEY0SGdla3lwU1Q0azdiQnM3YUF4Ti9wdGNUY1ZYYUhMVVdiTHJVZwo4czg1NHU5c0FKQjJGdDNIa0hML1d5NG1lRXdHSVpTR3NRTm0wMHJwRTdRZXphQWpPTE1oOFhYY0cwejlsZk56CjJDNS9Bb0dBZnlIQ2NFRkNhVmdONGVuMCszU1JPK3dsL001VUxJMFJsQ2FCUmpJcngwUzFqQnIrTVVDV0FQRG8KaGhHK0pBTjdkU2w5US9RT1krSDNmdFJLeG13RDNGVldxc2ZHNHplTzlvRmlBRTFwWFlCUkprNHROY25QY3p0TApMbXI1MFNpemFpK2dWSVdZY2FMQjVxQzE2S01PcUFFMDFDeER2R2RSOTdHVFZMRXJ1eFU9Ci0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg==
+---
+# Source: m13k/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: m13k-mutate
+  labels:
+    helm.sh/chart: m13k-0.1.0
+    app.kubernetes.io/name: m13k
+    app.kubernetes.io/instance: m13k
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  ytt.yaml: |
+    #@ load("@ytt:data", "data")
+    #@ load("@ytt:overlay", "overlay")
+    #@ load("@ytt:template", "template")
+
+    #@overlay/match by=overlay.subset({"kind": "Secret"})
+    ---
+    metadata:
+      #@overlay/match missing_ok=True
+      labels:
+        #@overlay/match missing_ok=True
+        m13k: "true"
+---
+# Source: m13k/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: m13k
+  labels:
+    helm.sh/chart: m13k-0.1.0
+    app.kubernetes.io/name: m13k
+    app.kubernetes.io/instance: m13k
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 443
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: m13k
+    app.kubernetes.io/instance: m13k
+---
+# Source: m13k/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m13k
+  labels:
+    helm.sh/chart: m13k-0.1.0
+    app.kubernetes.io/name: m13k
+    app.kubernetes.io/instance: m13k
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: m13k
+      app.kubernetes.io/instance: m13k
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: m13k
+        app.kubernetes.io/instance: m13k
+    spec:
+      serviceAccountName: m13k
+      securityContext:
+        {}
+      volumes:
+        - name: tls
+          secret:
+            secretName: m13k-tls
+        - name: mutate
+          configMap:
+            name: m13k-mutate
+      containers:
+        - name: m13k
+          securityContext:
+            {}
+          image: "paulczar/m13k:latest"
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: tls
+              mountPath: /app/tls
+            - name: mutate
+              mountPath: /app/mutate
+          command: ["/app/m13k"]
+          args:
+            - "serve"
+            - "--cert"
+            - "/app/tls/server.crt"
+            - "--key"
+            - "/app/tls/server.key"
+            - "--command"
+            - "ytt"
+            - "--"
+            - "--allow-symlink-destination"
+            - "true"
+            - "--dangerous-allow-all-symlink-destinations"
+            - "-o"
+            - "json"
+            - "-f"
+            - "-"
+            - "-f"
+            - "/app/mutate"
+          ports:
+            - name: http
+              containerPort: 8443
+              protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          resources:
+            {}
+---
+# Source: m13k/templates/admission-registration.yaml
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: m13k
+  labels:
+    helm.sh/chart: m13k-0.1.0
+    app.kubernetes.io/name: m13k
+    app.kubernetes.io/instance: m13k
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+webhooks:
+  - name: m13k.m13k.svc
+    clientConfig:
+      service:
+        name: m13k
+        namespace: m13k
+        path: "/mutate"
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURORENDQWh5Z0F3SUJBZ0lVVFcxTGVsTHRKZlgrUC9jTlQ2QUpPNXNIckt3d0RRWUpLb1pJaHZjTkFRRUwKQlFBd0VqRVFNQTRHQTFVRUF3d0hkR1Z6ZEMxallUQWVGdzB5TURBMk1qVXlNREF3TURSYUZ3MHlNREE0TWpReQpNREF3TURSYU1CSXhFREFPQmdOVkJBTU1CM1JsYzNRdFkyRXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCCkR3QXdnZ0VLQW9JQkFRQzl6WEp5UFhDMVF4TG5iWXFUeXA2L3E4NkgrcjFRTG1zeERuZkFuSjVieUlyUkQ5YUkKdDFhL2YvSEpQa3RQek1sKzBXZU4renNDVEtUTHRGelpZQmZZWlBXbTBYM0dETFAyRlhJNW5BR0pBcXppRTBocQpTUmZSYnlJUW5EdlV4UjluQlQzUE1ueWZZVm9NUzJvTjRIbjhieUw3b0twYlo3K0hOYUxYN0RmVEVmUldlWU1sClBlSmRNU3ltVnNGOXUzVTExNWpYSFBkZ1F2RU1jMGxucUpjby81K3pxa3lXT1NpczViYll4SThrV0ZmQmpPVVEKMzBnbU53M1lJK2VJTS9oVGFPZnl3UzQ2K2JMUWJEQzZyNzJIdDFkcFBlU1MzR2M4NHVkL2FQNjEybUl0YnBUYQpib21walpxYWJuaDZ6dXQ0eWQ3TWZiSTV6Q1NoZWRTUVZ3ZXJBZ01CQUFHamdZRXdmekFQQmdOVkhSTUJBZjhFCkJUQURBUUgvTUIwR0ExVWREZ1FXQkJUOFl5bkhwYzRMTTZSY1ByM0NwK3hRZGcxaGl6Qk5CZ05WSFNNRVJqQkUKZ0JUOFl5bkhwYzRMTTZSY1ByM0NwK3hRZGcxaGk2RVdwQlF3RWpFUU1BNEdBMVVFQXd3SGRHVnpkQzFqWVlJVQpUVzFMZWxMdEpmWCtQL2NOVDZBSk81c0hyS3d3RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUVkbVl3RG9EUlpkCkxiakFZZzllODFDSXZpWmE1ZDRPQ3RUTEQvTXU1VG5ZbXc4Y052ODRqbFBjYzQrKys2dXg1NW94RFBuU0hDTjkKbDdNS2Q4VlpsK3I3TXBUK2ZyQTk0OThJUUR5bmpoQXRsdTk1ckN0TWlJWXpmSnNacE92bWZjbGhNOEViT3g1eAovTjJRWVJhUXhGa2dKRE5YUklNc0NIWjFqVXhwMVVRVmplSlFPbHBzWFRQVURySUlBL01XbHBLVDliUGNIay9lClVxU2E4cHVhNTdGR2JTUEFzVUhGbmpSS1RSRWVIbjRlQXl2VEoxUE5FeTJDWHhEckVzVUtKaVVxelpQRi9MZUYKSTZWVG05RFNLTVBwdG5td3JqekhROElSUDVqcVFpMk0vQUlJcEdMdi9WRStMMHFLc0ZkRFgzV1M3a1JmM1VwUQpyOHgrWUlWUjMxWT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+    rules:
+      - operations: [ "CREATE" ]
+        apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["secrets"]
+---
+# Source: m13k/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "m13k-test-connection"
+  labels:
+    helm.sh/chart: m13k-0.1.0
+    app.kubernetes.io/name: m13k
+    app.kubernetes.io/instance: m13k
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['m13k:443']
+  restartPolicy: Never

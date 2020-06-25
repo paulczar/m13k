@@ -1,0 +1,19 @@
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: {{ include "m13k.fullname" . }}
+  labels:
+    {{- include "m13k.labels" . | nindent 4 }}
+webhooks:
+  - name: {{ include "m13k.fullname" . }}.{{ .Release.Namespace }}.svc
+    clientConfig:
+      service:
+        name: {{ include "m13k.fullname" . }}
+        namespace: {{ .Release.Namespace }}
+        path: "/mutate"
+      caBundle: {{ .Files.Get "files/ca.pem" | b64enc }}
+    rules:
+      - operations: ["CREATE"]
+        apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["secrets"]
