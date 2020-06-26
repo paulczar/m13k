@@ -27,19 +27,29 @@ go run main.go serve --cert scratch/server.pem --key scratch/server.key --comman
 
 Send a secret through and see that it comes back mutated:
 
+> Note: this is actually an admission review request containing the secret, to emulate what really happens on the cluster.
+
 ```bash
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data @./examples/secret.yaml \
-  -k https://localhost:8443/mutate | jq
+  --data @./examples/admission-review.json \
+  -k https://localhost:8443/mutate | jq .response
   ```
 
-The output of which should be the same resource, just with a new label:
+The output of which should show an allowed patch response:
 
 ```json
-    "labels": {
-      "m13k": "true"
-    },
+{
+  "uid": "11235d45-5687-4659-996d-e8f27ba7593d",
+  "allowed": true,
+  "status": {
+    "metadata": {},
+    "message": "Success"
+  },
+  "patch": "W3sib3AiOiJhZGQiLCJwYXRoIjoiL21ldGFkYXRhL2xhYmVscyIsInZhbHVlIjp7Im0xM2siOiJ0cnVlIn19XQ==",
+  "patchType": "JSONPatch"
+}
+
 ```
 
 ## Deploy
