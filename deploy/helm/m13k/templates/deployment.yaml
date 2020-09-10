@@ -49,9 +49,9 @@ spec:
           args:
             - "serve"
             - "--cert"
-            - "/app/tls/server.crt"
+            - "/app/tls/tls.crt"
             - "--key"
-            - "/app/tls/server.key"
+            - "/app/tls/tls.key"
             - "--command"
             - "ytt"
             - "--"

@@ -11,7 +11,7 @@ webhooks:
         name: {{ include "m13k.fullname" . }}
         namespace: {{ .Release.Namespace }}
         path: "/mutate"
-      caBundle: {{ .Files.Get "files/ca.pem" | b64enc }}
+      caBundle: {{ .Values.caBundle | default (.Files.Get "files/ca.pem" | b64enc) }}
     rules:
       - operations: ["CREATE"]
         apiGroups: [""]

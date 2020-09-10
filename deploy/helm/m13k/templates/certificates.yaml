@@ -1,0 +1,49 @@
+{{- if .Values.certManager.enabled -}}
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: {{ include "m13k.fullname" . }}-root-ca
+  labels:
+    {{- include "m13k.labels" . | nindent 4 }}
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: {{ include "m13k.fullname" . }}-root-ca
+  labels:
+    {{- include "m13k.labels" . | nindent 4 }}
+spec:
+  secretName: {{ include "m13k.fullname" . }}-root-ca-tls
+  commonName: {{ include "m13k.fullname" . }}-root-ca
+  isCA: true
+  issuerRef:
+    name: {{ include "m13k.fullname" . }}-root-ca
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: {{ include "m13k.fullname" . }}
+  labels:
+    {{- include "m13k.labels" . | nindent 4 }}
+spec:
+  ca:
+    secretName: {{ include "m13k.fullname" . }}-root-ca-tls
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: {{ include "m13k.fullname" . }}
+  labels:
+    {{- include "m13k.labels" . | nindent 4 }}
+spec:
+  secretName: {{ include "m13k.fullname" . }}-tls
+  isCA: false
+  dnsNames:
+  - "{{ include "m13k.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local"
+  - "{{ include "m13k.fullname" . }}.{{ .Release.Namespace }}.svc"
+  - "{{ include "m13k.fullname" . }}"
+  issuerRef:
+    name: {{ include "m13k.fullname" . }}
+{{- end }}

@@ -54,6 +54,12 @@ The output of which should show an allowed patch response:
 
 ## Deploy
 
+Deploy a KIND cluster with Admission Controller enabled:
+
+```bash
+kind create cluster --config deploy/kind.yaml
+```
+
 ```bash
 kubectl create ns m13k
 kubectl apply -n m13k -f deploy/manifests.yaml
@@ -62,20 +68,37 @@ kubectl apply -n m13k -f deploy/manifests.yaml
 
 ## Deploy via Helm
 
-Generate certificates and save them in `deploy/helm/m13k/files` as `ca.pem`, `cert.pem` and `key.pem` make sure you set the subject to make the final service name.
-
-This will do it for you if you don't want to mess around with `openssl` commands:
-
+```bash
+kind create cluster --config deploy/kind.yaml
 ```
-docker run -e SSL_SUBJECT="m13k.m13k.svc" \
-  -v $(pwd)/deploy/helm/m13k/files:/certs \
-  paulczar/omgwtfssl
-sudo chown $USER:$USER deploy/helm/m13k/files/*
+
+Deploy Cert Manager:
+
+```bash
+kubectl create namespace cert-manager
+kubectl apply --validate=false --wait \
+  -f https://github.com/jetstack/cert-manager/releases/download/v0.13.1/cert-manager.yaml
 ```
+
 
 Deploy:
 
-```
-kubectl create ns m13k
+```bash
+kubectl create namespace m13k
 helm install m13k --namespace m13k deploy/helm/m13k
+```
+
+Because the webhook registration take the CA as a key and can't read from a secret we need to
+provide the CA in a second pass:
+
+```bash
+CA=$(kubectl -n m13k get secret m13k-root-ca-tls -o jsonpath='{.data.ca\.crt}')
+helm upgrade m13k --namespace m13k deploy/helm/m13k --set="caBundle=${CA}"
+```
+
+Test:
+
+```bash
+kubectl -n default create secret generic test --from-literal="test=test"
+kubectl get secret test -o json | jq .metadata.labels
 ```
